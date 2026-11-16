@@ -1,0 +1,11 @@
+### Authors
+# Used to overwrite the site author for specific pages by setting the author variable in the front matter of a page to the key of an author in this file.
+
+Name Name:
+  name        : "Name Name"
+  uri         : "https://name.com"
+  email       : "name@name.com"
+  bio         : "This is the first name."
+  avatar      : "black-white-lion-blue-eyes.jpg"
+  twitter     : "name"
+  google_plus : "Name"

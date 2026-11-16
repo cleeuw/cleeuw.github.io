@@ -1,0 +1,38 @@
+{% assign item = include.item %}
+{% assign authors_value = item.authors | default: item.author %}
+
+{% if authors_value %}
+  {% assign authors_json = authors_value | jsonify %}
+  <p>
+    <strong><i class="fa fa-fw fa-user" aria-hidden="true"></i> By: </strong>
+    {%- if authors_json contains '[' -%}
+      {%- for author_key in authors_value -%}
+        {%- assign author_key = author_key | strip -%}
+        {%- if site.data.authors[author_key] and site.data.authors[author_key].name -%}
+          {{- site.data.authors[author_key].name -}}
+        {%- else -%}
+          {{- author_key -}}
+        {%- endif -%}
+        {%- unless forloop.last -%}, {% endunless -%}
+      {%- endfor -%}
+    {%- elsif authors_value contains ',' -%}
+      {%- assign author_parts = authors_value | split: ',' -%}
+      {%- for author_key in author_parts -%}
+        {%- assign author_key = author_key | strip -%}
+        {%- if site.data.authors[author_key] and site.data.authors[author_key].name -%}
+          {{- site.data.authors[author_key].name -}}
+        {%- else -%}
+          {{- author_key -}}
+        {%- endif -%}
+        {%- unless forloop.last -%}, {% endunless -%}
+      {%- endfor -%}
+    {% else %}
+      {% assign author_key = authors_value | strip %}
+      {% if site.data.authors[author_key] and site.data.authors[author_key].name %}
+        {{ site.data.authors[author_key].name }}
+      {% else %}
+        {{ author_key }}
+      {% endif %}
+    {% endif %}
+  </p>
+{% endif %}
